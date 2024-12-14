@@ -2,6 +2,8 @@ import { Application } from "@oak/oak";
 import { router } from "/router.js";
 import { oakCors } from "cors/mod.ts";
 
+import "@std/dotenv/load";
+
 const app = new Application();
 
 app.use(async (ctx, next) => {
