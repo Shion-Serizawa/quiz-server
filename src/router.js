@@ -7,6 +7,7 @@ import AuthController from "/controllers/auth_controller.js";
 import UserController from "/controllers/user_controller.js";
 import QuestionController from "/controllers/question_controller.js";
 import AnswerController from "./controllers/answer_controller.js";
+import RankingController from "/controllers/ranking_controller.js";
 
 const router = new Router();
 
@@ -30,5 +31,7 @@ router.get("/questions/:questionId", QuestionController.getQuestion);
 router.delete("/questions/:questionId", QuestionController.deleteQuestion);
 
 router.post("/questions/:questionId/answer", AnswerController.answer);
+
+router.get("/ranking", RankingController.get);
 
 export { router };

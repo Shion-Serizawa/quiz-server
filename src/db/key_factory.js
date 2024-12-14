@@ -15,4 +15,8 @@ export default class KeyFactory {
   static answerKey(username, questionId) {
     return ["answers", username, questionId];
   }
+
+  static answerPrefix() {
+    return ["answers"];
+  }
 }
