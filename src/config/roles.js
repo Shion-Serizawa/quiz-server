@@ -46,3 +46,9 @@ ROLE_PERMISSIONS.set(Roles.USER, [
 ROLE_PERMISSIONS.set(Roles.ADMIN, [
   ...ROLE_PERMISSIONS.get(Roles.USER),
 ]);
+
+export const INVITE_CODE_ROLES = new Map();
+INVITE_CODE_ROLES.set(Deno.env.get("USER_INVITE_CODE"), Roles.USER);
+INVITE_CODE_ROLES.set(Deno.env.get("ADMIN_INVITE_CODE"), Roles.ADMIN);
+// 環境変数が未設定のときに誤ってroleが付与されるのを防止する
+INVITE_CODE_ROLES.set(undefined, undefined);
