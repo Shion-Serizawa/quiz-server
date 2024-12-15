@@ -13,7 +13,13 @@ import ImageController from "/controllers/image_controller.js";
 const router = new Router();
 
 // sample
-router.get("/hello", (ctx) => {
+router.get("/hello", async (ctx) => {
+  await ctx.cookies.set("hello", "world", {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+    ignoreInsecure: true, // これがないとなぜか動かない
+  });
   ctx.response.body = { hello: "world" };
 });
 // sample

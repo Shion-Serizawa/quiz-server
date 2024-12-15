@@ -33,7 +33,12 @@ export default class AuthController {
       return;
     }
 
-    await cookies.set("username", username);
+    await cookies.set("username", username, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+      ignoreInsecure: true,
+    });
 
     response.body = { username };
   }

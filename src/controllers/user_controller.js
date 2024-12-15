@@ -39,7 +39,12 @@ export default class UserController {
     const newUser = { username, passwordHash, role };
     await kv.set(KeyFactory.userKey(username), newUser);
 
-    await cookies.set("username", username);
+    await cookies.set("username", username, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+      ignoreInsecure: true,
+    });
 
     response.body = { username };
   }
