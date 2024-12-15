@@ -33,16 +33,15 @@ ROLE_PERMISSIONS.set(Roles.USER, [
   Permissions.GET_ME,
 
   Permissions.GET_STATUS,
-  Permissions.POST_STATUS,
   Permissions.GET_QUESTIONS,
-
   Permissions.POST_ANSWERS,
-
   Permissions.GET_RANKING,
 ]);
 
 ROLE_PERMISSIONS.set(Roles.ADMIN, [
   ...ROLE_PERMISSIONS.get(Roles.USER),
+
+  Permissions.POST_STATUS,
   Permissions.POST_QUESTIONS,
   Permissions.DELETE_QUESTIONS,
   Permissions.ALWAYS_SEE_ANSWER,
