@@ -20,7 +20,7 @@ export default class UserController {
       return;
     }
 
-    if (inviteCode !== "foobar") {
+    if (inviteCode !== Deno.env.get("USER_INVITE_CODE")) {
       response.body = Errors.UNKNOWN_INVITE_CODE;
       return;
     }
