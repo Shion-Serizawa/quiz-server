@@ -20,6 +20,7 @@ export class Permissions {
   static GET_QUESTIONS = "GET_QUESTIONS";
   static POST_QUESTIONS = "POST_QUESTIONS";
   static DELETE_QUESTIONS = "DELETE_QUESTIONS";
+  static ALWAYS_SEE_ANSWER = "ALWAYS_SEE_ANSWER";
 
   static POST_ANSWERS = "POST_ANSWERS";
 
@@ -35,9 +36,6 @@ ROLE_PERMISSIONS.set(Roles.USER, [
   Permissions.POST_STATUS,
   Permissions.GET_QUESTIONS,
 
-  Permissions.POST_QUESTIONS,
-  Permissions.DELETE_QUESTIONS,
-
   Permissions.POST_ANSWERS,
 
   Permissions.GET_RANKING,
@@ -45,6 +43,9 @@ ROLE_PERMISSIONS.set(Roles.USER, [
 
 ROLE_PERMISSIONS.set(Roles.ADMIN, [
   ...ROLE_PERMISSIONS.get(Roles.USER),
+  Permissions.POST_QUESTIONS,
+  Permissions.DELETE_QUESTIONS,
+  Permissions.ALWAYS_SEE_ANSWER,
 ]);
 
 export const INVITE_CODE_ROLES = new Map();
