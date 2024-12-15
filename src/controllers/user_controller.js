@@ -2,12 +2,7 @@ import * as Errors from "/utils/errors.js";
 import { kv } from "/db/kv.js";
 import KeyFactory from "/db/key_factory.js";
 import HashHelper from "/utils/hash_helper.js";
-import { Roles } from "/config/roles.js";
-
-const validInviteCodes = [
-  Deno.env.get("USER_INVITE_CODE"),
-  Deno.env.get("ADMIN_INVITE_CODE"),
-];
+import { INVITE_CODE_ROLES } from "/config/roles.js";
 
 export default class UserController {
   static async create({ request, cookies, response }) {
@@ -25,7 +20,9 @@ export default class UserController {
       return;
     }
 
-    if (!validInviteCodes.includes(inviteCode)) {
+    const role = INVITE_CODE_ROLES.get(inviteCode);
+
+    if (!role) {
       response.body = Errors.UNKNOWN_INVITE_CODE;
       return;
     }
@@ -38,7 +35,6 @@ export default class UserController {
     }
 
     // createUser
-    const role = getRole(inviteCode);
     const passwordHash = await HashHelper.hash(password);
     const newUser = { username, passwordHash, role };
     await kv.set(KeyFactory.userKey(username), newUser);
@@ -47,14 +43,4 @@ export default class UserController {
 
     response.body = { username };
   }
-}
-
-function getRole(inviteCode) {
-  if (inviteCode === Deno.env.get("USER_INVITE_CODE")) {
-    return Roles.USER;
-  } else if (inviteCode === Deno.env.get("ADMIN_INVITE_CODE")) {
-    return Roles.ADMIN;
-  }
-
-  throw new Error("Invalid invite code");
 }
