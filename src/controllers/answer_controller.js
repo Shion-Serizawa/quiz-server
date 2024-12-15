@@ -10,7 +10,7 @@ export default class AnswerController {
     const answerChoiceId = json.choiceId;
 
     if (typeof username !== "string" || username === "") {
-      Errors.NOT_LOGIN.apply(response);
+      response.body = Errors.NOT_LOGIN;
       return;
     }
     if (
@@ -19,7 +19,7 @@ export default class AnswerController {
       typeof answerChoiceId !== "number" ||
       answerChoiceId === ""
     ) {
-      Errors.BAD_REQUEST.apply(response);
+      response.body = Errors.BAD_REQUEST;
       return;
     }
 
