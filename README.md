@@ -2,10 +2,12 @@
 
 `.env` ファイルを作成し、環境変数を設定する
 
-| 環境変数                  | 値               |
-| ------------------------- | ---------------- |
-| SUPABASE_URL              | Project URL      |
-| SUPABASE_SERVICE_ROLE_KEY | Service Role Key |
+| 環境変数                  | 値                |
+| ------------------------- | ----------------- |
+| SUPABASE_URL              | Project URL       |
+| SUPABASE_SERVICE_ROLE_KEY | Service Role Key  |
+| USER_INVITE_CODE          | user invite code  |
+| ADMIN_INVITE_CODE         | admin invite code |
 
 ```
 $ deno task start
