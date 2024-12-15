@@ -17,7 +17,7 @@ router.get("/hello", (ctx) => {
 });
 // sample
 router.get("/error/400", (ctx) => {
-  ctx.response.body = Errors.BAD_REQUEST;
+  Errors.BAD_REQUEST.apply(ctx.response);
 });
 // sample
 router.get("/me", auth([Permissions.GET_ME]), SampleController.getMe);

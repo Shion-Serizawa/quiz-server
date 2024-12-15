@@ -7,19 +7,19 @@ export const auth =
   (requiredPermissions) => async ({ cookies, response }, next) => {
     const username = await cookies.get("username");
     if (!username) {
-      response.body = Errors.UNAUTHORIZED;
+      Errors.UNAUTHORIZED.apply(response);
       return;
     }
 
     const user = (await kv.get(KeyFactory.userKey(username))).value;
     if (!user) {
-      response.body = Errors.UNAUTHORIZED;
+      Errors.UNAUTHORIZED.apply(response);
       return;
     }
 
     const userPermissions = ROLE_PERMISSIONS.get(user.role) ?? [];
     if (!hasPermission(requiredPermissions, userPermissions)) {
-      response.body = Errors.FORBIDDEN;
+      Errors.FORBIDDEN.apply(response);
       return;
     }
 
