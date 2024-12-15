@@ -4,6 +4,11 @@ import KeyFactory from "/db/key_factory.js";
 import HashHelper from "/utils/hash_helper.js";
 import { Roles } from "/config/roles.js";
 
+const validInviteCodes = [
+  Deno.env.get("USER_INVITE_CODE"),
+  Deno.env.get("ADMIN_INVITE_CODE"),
+];
+
 export default class UserController {
   static async create({ request, cookies, response }) {
     const json = await request.body.json();
@@ -20,11 +25,12 @@ export default class UserController {
       return;
     }
 
-    if (inviteCode !== Deno.env.get("USER_INVITE_CODE")) {
+    if (!validInviteCodes.includes(inviteCode)) {
       response.body = Errors.UNKNOWN_INVITE_CODE;
       return;
     }
 
+    // すでに存在するユーザ名のチェック
     const oldUser = (await kv.get(KeyFactory.userKey(username))).value;
     if (oldUser) {
       response.body = Errors.INVALID_USERNAME;
@@ -32,7 +38,7 @@ export default class UserController {
     }
 
     // createUser
-    const role = Roles.USER;
+    const role = getRole(inviteCode);
     const passwordHash = await HashHelper.hash(password);
     const newUser = { username, passwordHash, role };
     await kv.set(KeyFactory.userKey(username), newUser);
@@ -41,4 +47,14 @@ export default class UserController {
 
     response.body = { username };
   }
+}
+
+function getRole(inviteCode) {
+  if (inviteCode === Deno.env.get("USER_INVITE_CODE")) {
+    return Roles.USER;
+  } else if (inviteCode === Deno.env.get("ADMIN_INVITE_CODE")) {
+    return Roles.ADMIN;
+  }
+
+  throw new Error("Invalid invite code");
 }
