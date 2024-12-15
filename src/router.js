@@ -8,6 +8,7 @@ import UserController from "/controllers/user_controller.js";
 import QuestionController from "/controllers/question_controller.js";
 import AnswerController from "./controllers/answer_controller.js";
 import RankingController from "/controllers/ranking_controller.js";
+import ImageController from "/controllers/image_controller.js";
 
 const router = new Router();
 
@@ -33,5 +34,11 @@ router.delete("/questions/:questionId", QuestionController.deleteQuestion);
 router.post("/questions/:questionId/answer", AnswerController.answer);
 
 router.get("/ranking", RankingController.get);
+
+router.get(
+  "/images/:filename",
+  auth([Permissions.GET_QUESTIONS]),
+  ImageController.get,
+);
 
 export { router };
