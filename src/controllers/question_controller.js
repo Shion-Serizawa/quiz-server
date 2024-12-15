@@ -9,8 +9,8 @@ export default class QuestionController {
     // バリデーション
     const validationResult = validateQuestion(body);
     if (!validationResult.valid) {
-      ctx.response.status = 400;
-      ctx.response.body = { status: 400, message: validationResult.message };
+      ctx.response.status = 200;
+      ctx.response.body = { status: 400, error: validationResult.message };
       return;
     }
 
@@ -25,7 +25,6 @@ export default class QuestionController {
 
     // バリデーション
     if (isNotNumber(questionId)) {
-      ctx.response.status = 400;
       ctx.response.body = {
         status: 400,
         error: "質問は数字で取得してください",
@@ -36,11 +35,7 @@ export default class QuestionController {
     // データの取得
     const question = await kv.get(["questions", questionId]);
     if (question.value === null) {
-      ctx.response.status = 400;
-      ctx.response.body = {
-        status: 400,
-        message: "このidのデータはありません",
-      };
+      ctx.response.body = { status: 400, error: "このidのデータはありません" };
       return;
     }
 
@@ -52,16 +47,17 @@ export default class QuestionController {
 
     // バリデーション
     if (isNotNumber(questionId)) {
-      ctx.response.status = 400;
       ctx.response.body = {
         status: 400,
-        message: "質問は数字で取得してください",
+        error: "質問は数字で取得してください",
       };
       return;
     }
 
     // データの削除
     await kv.delete(["questions", questionId]);
+
+    ctx.response.body = { status: 200 };
   }
 }
 

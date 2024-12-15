@@ -14,13 +14,13 @@ export default class AuthController {
       typeof password !== "string" ||
       password === ""
     ) {
-      Errors.BAD_REQUEST.apply(response);
+      response.body = Errors.BAD_REQUEST;
       return;
     }
 
     const user = (await kv.get(KeyFactory.userKey(username))).value;
     if (!user) {
-      Errors.WRONG_USERNAME_OR_PASSWORD.apply(response);
+      response.body = Errors.WRONG_USERNAME_OR_PASSWORD;
       return;
     }
 
@@ -29,7 +29,7 @@ export default class AuthController {
       user.passwordHash,
     );
     if (!isCorrectPassword) {
-      Errors.WRONG_USERNAME_OR_PASSWORD.apply(response);
+      response.body = Errors.WRONG_USERNAME_OR_PASSWORD;
       return;
     }
 

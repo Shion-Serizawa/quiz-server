@@ -16,18 +16,18 @@ export default class UserController {
       password === "" ||
       typeof inviteCode !== "string"
     ) {
-      Errors.BAD_REQUEST.apply(response);
+      response.body = Errors.BAD_REQUEST;
       return;
     }
 
     if (inviteCode !== "foobar") {
-      Errors.UNKNOWN_INVITE_CODE.apply(response);
+      response.body = Errors.UNKNOWN_INVITE_CODE;
       return;
     }
 
     const oldUser = (await kv.get(KeyFactory.userKey(username))).value;
     if (oldUser) {
-      Errors.INVALID_USERNAME.apply(response);
+      response.body = Errors.INVALID_USERNAME;
       return;
     }
 
