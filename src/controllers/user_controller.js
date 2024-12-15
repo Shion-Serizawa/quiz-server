@@ -27,7 +27,7 @@ export default class UserController {
 
     const oldUser = (await kv.get(KeyFactory.userKey(username))).value;
     if (oldUser) {
-      Errors.INVALID_USERNAM.apply(response);
+      Errors.INVALID_USERNAME.apply(response);
       return;
     }
 
