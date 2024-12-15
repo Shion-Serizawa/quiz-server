@@ -27,13 +27,29 @@ router.post("/signup", UserController.create);
 router.post("/signin", AuthController.signin);
 router.post("/signout", AuthController.signout);
 
-router.post("/questions", QuestionController.postQuestion);
-router.get("/questions/:questionId", QuestionController.getQuestion);
-router.delete("/questions/:questionId", QuestionController.deleteQuestion);
+router.post(
+  "/questions",
+  auth([Permissions.POST_QUESTIONS]),
+  QuestionController.postQuestion,
+);
+router.get(
+  "/questions/:questionId",
+  auth([Permissions.GET_QUESTIONS]),
+  QuestionController.getQuestion,
+);
+router.delete(
+  "/questions/:questionId",
+  auth([Permissions.DELETE_QUESTIONS]),
+  QuestionController.deleteQuestion,
+);
 
-router.post("/questions/:questionId/answer", AnswerController.answer);
+router.post(
+  "/questions/:questionId/answer",
+  auth([Permissions.POST_ANSWERS]),
+  AnswerController.answer,
+);
 
-router.get("/ranking", RankingController.get);
+router.get("/ranking", auth([Permissions.GET_RANKING]), RankingController.get);
 
 router.get(
   "/images/:filename",
