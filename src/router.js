@@ -33,6 +33,11 @@ router.post(
   QuestionController.postQuestion,
 );
 router.get(
+  "/questions/admin/:questionId",
+  auth([Permissions.ALWAYS_SEE_ANSWER]),
+  QuestionController.getQuestionByAdmin,
+);
+router.get(
   "/questions/:questionId",
   auth([Permissions.GET_QUESTIONS]),
   QuestionController.getQuestion,

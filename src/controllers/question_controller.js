@@ -20,6 +20,27 @@ export default class QuestionController {
     ctx.response.body = { status: 200 };
   }
 
+  static async getQuestionByAdmin(ctx) {
+    const questionId = await ctx.params.questionId;
+    // バリデーション
+    if (isNotNumber(questionId)) {
+      ctx.response.body = {
+        status: 400,
+        error: "質問は数字で取得してください",
+      };
+      return;
+    }
+
+    // データの取得
+    const question = await kv.get(["questions", questionId]);
+    if (question.value === null) {
+      ctx.response.body = { status: 400, error: "このidのデータはありません" };
+      return;
+    }
+
+    ctx.response.body = question.value;
+  }
+
   static async getQuestion(ctx) {
     const questionId = await ctx.params.questionId;
 
