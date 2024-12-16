@@ -10,7 +10,7 @@ const app = new Application({
 });
 
 app.use(oakCors({
-  origin: true,
+  origin: "https://seri-quiz-web-38.deno.dev",
   credentials: true,
 }));
 

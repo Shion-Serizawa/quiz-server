@@ -34,19 +34,23 @@ export default class AuthController {
     }
 
     await cookies.set("username", username, {
-      httpOnly: false,
+      httpOnly: true,
       sameSite: "none",
       secure: true,
-      ignoreInsecure: true,
       maxAge: 86400,
-      domain: "seri-quiz-server-98.deno.dev",
+      domain: ".deno.dev",
     });
 
     response.body = { username };
   }
 
   static async signout({ cookies, response }) {
-    await cookies.set("username", "", { maxAge: 0 });
+    await cookies.set("username", "", {
+      maxAge: 0,
+      sameSite: "none",
+      secure: true,
+      domain: ".deno.dev",
+    });
     response.status = 200;
   }
 }
