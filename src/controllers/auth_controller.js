@@ -39,6 +39,7 @@ export default class AuthController {
       secure: true,
       ignoreInsecure: true,
       maxAge: 86400,
+      domain: "https://seri-quiz-server-98.deno.dev",
     });
 
     response.body = { username };
