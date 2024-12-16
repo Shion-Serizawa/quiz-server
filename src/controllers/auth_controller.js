@@ -33,28 +33,13 @@ export default class AuthController {
       return;
     }
 
-    await cookies.set("username", username, {
-      httpOnly: true,
-      sameSite: "none",
-      secure: true,
-      ignoreInsecure: true,
-      path: "/",
-      maxAge: 86400,
-      domain: ".deno.dev",
-    });
+    await cookies.set("username", username);
 
     response.body = { username };
   }
 
   static async signout({ cookies, response }) {
-    await cookies.set("username", "", {
-      httpOnly: true,
-      sameSite: "none",
-      secure: true,
-      path: "/",
-      domain: ".deno.dev",
-      maxAge: 0, // 即時無効化
-    });
+    await cookies.set("username", "", { maxAge: 0 });
     response.status = 200;
   }
 }
