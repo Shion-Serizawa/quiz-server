@@ -40,7 +40,6 @@ export default class AuthController {
       ignoreInsecure: true,
       path: "/",
       maxAge: 86400,
-      domain: ".deno.dev",
     });
 
     response.body = { username };
@@ -52,7 +51,6 @@ export default class AuthController {
       sameSite: "none",
       secure: true,
       path: "/",
-      domain: ".deno.dev",
       maxAge: 0, // 即時無効化
     });
     response.status = 200;
