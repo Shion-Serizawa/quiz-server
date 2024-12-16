@@ -19,7 +19,6 @@ router.get("/hello", async (ctx) => {
     sameSite: "none",
     secure: true,
     ignoreInsecure: true, // これがないとなぜか動かない
-    domain: "https://seri-quiz-server-98.deno.dev",
   });
   ctx.response.body = { hello: "world" };
 });
