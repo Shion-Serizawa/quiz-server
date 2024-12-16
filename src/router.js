@@ -9,6 +9,7 @@ import QuestionController from "/controllers/question_controller.js";
 import AnswerController from "./controllers/answer_controller.js";
 import RankingController from "/controllers/ranking_controller.js";
 import ImageController from "/controllers/image_controller.js";
+import StatusController from "/controllers/status_controller.js";
 
 const router = new Router();
 
@@ -66,6 +67,12 @@ router.get(
   "/images/:filename",
   auth([Permissions.GET_QUESTIONS]),
   ImageController.get,
+);
+
+router.post(
+  "/status", 
+  auth([Permissions.POST_STATUS]),
+  StatusController.post,
 );
 
 export { router };

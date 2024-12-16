@@ -16,6 +16,10 @@ export default class KeyFactory {
     return ["answers", username, questionId];
   }
 
+  static statusKey() {
+    return ["status"];
+  }
+
   static answerPrefix() {
     return ["answers"];
   }
