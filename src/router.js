@@ -36,36 +36,40 @@ router.post("/signout", AuthController.signout);
 
 router.post(
   "/questions",
-  auth([Permissions.POST_QUESTIONS]),
+  //auth([Permissions.POST_QUESTIONS]),
   QuestionController.postQuestion,
 );
 router.get(
   "/questions/admin/:questionId",
-  auth([Permissions.ALWAYS_SEE_ANSWER]),
+  //auth([Permissions.ALWAYS_SEE_ANSWER]),
   QuestionController.getQuestionByAdmin,
 );
 router.get(
   "/questions/:questionId",
-  auth([Permissions.GET_QUESTIONS]),
+  //auth([Permissions.GET_QUESTIONS]),
   QuestionController.getQuestion,
 );
 router.delete(
   "/questions/:questionId",
-  auth([Permissions.DELETE_QUESTIONS]),
+  //auth([Permissions.DELETE_QUESTIONS]),
   QuestionController.deleteQuestion,
 );
 
 router.post(
   "/questions/:questionId/answer",
-  auth([Permissions.POST_ANSWERS]),
+  //auth([Permissions.POST_ANSWERS]),
   AnswerController.answer,
 );
 
-router.get("/ranking", auth([Permissions.GET_RANKING]), RankingController.get);
+router.get(
+  "/ranking",
+  //auth([Permissions.GET_RANKING]),
+  RankingController.get,
+);
 
 router.get(
   "/images/:filename",
-  auth([Permissions.GET_QUESTIONS]),
+  //auth([Permissions.GET_QUESTIONS]),
   ImageController.get,
 );
 
