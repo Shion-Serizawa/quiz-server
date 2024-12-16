@@ -34,7 +34,7 @@ export default class AuthController {
     }
 
     await cookies.set("username", username, {
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "none",
       secure: true,
       ignoreInsecure: true,
