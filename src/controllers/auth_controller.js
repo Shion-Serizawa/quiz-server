@@ -33,14 +33,7 @@ export default class AuthController {
       return;
     }
 
-    await cookies.set("username", username, {
-      httpOnly: false,
-      sameSite: "none",
-      secure: true,
-      ignoreInsecure: true,
-      maxAge: 86400,
-      domain: "seri-quiz-server-98.deno.dev",
-    });
+    await cookies.set("username", username);
 
     response.body = { username };
   }
