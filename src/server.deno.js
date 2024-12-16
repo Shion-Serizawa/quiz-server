@@ -10,7 +10,7 @@ const app = new Application({
 });
 
 app.use(oakCors({
-  origin: "https://sztm-quiz-web.deno.dev",
+  origin: true,
   credentials: true,
 }));
 
