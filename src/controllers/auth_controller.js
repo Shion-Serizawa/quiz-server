@@ -37,7 +37,6 @@ export default class AuthController {
       httpOnly: true,
       sameSite: "none",
       secure: true,
-      path: "/",
       maxAge: 86400,
       domain: ".deno.dev",
     });
@@ -47,12 +46,10 @@ export default class AuthController {
 
   static async signout({ cookies, response }) {
     await cookies.set("username", "", {
-      httpOnly: true,
+      maxAge: 0,
       sameSite: "none",
       secure: true,
-      path: "/",
       domain: ".deno.dev",
-      maxAge: 0, // 即時無効化
     });
     response.status = 200;
   }
