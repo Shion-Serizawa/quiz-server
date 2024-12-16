@@ -44,6 +44,7 @@ export default class UserController {
       sameSite: "none",
       secure: true,
       ignoreInsecure: true,
+      maxAge: 86400,
     });
 
     response.body = { username };
