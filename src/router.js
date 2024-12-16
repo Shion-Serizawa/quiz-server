@@ -15,12 +15,7 @@ const router = new Router();
 
 // sample
 router.get("/hello", async (ctx) => {
-  await ctx.cookies.set("hello", "world", {
-    httpOnly: true,
-    sameSite: "none",
-    secure: true,
-    ignoreInsecure: true, // これがないとなぜか動かない
-  });
+  await ctx.cookies.set("hello", "world");
   ctx.response.body = { hello: "world" };
 });
 // sample
@@ -74,7 +69,7 @@ router.get(
 );
 
 router.post(
-  "/status", 
+  "/status",
   auth([Permissions.POST_STATUS]),
   StatusController.post,
 );
