@@ -14,8 +14,7 @@ import StatusController from "/controllers/status_controller.js";
 const router = new Router();
 
 // sample
-router.get("/hello", async (ctx) => {
-  await ctx.cookies.set("hello", "world");
+router.get("/hello", (ctx) => {
   ctx.response.body = { hello: "world" };
 });
 // sample

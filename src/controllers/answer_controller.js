@@ -3,8 +3,8 @@ import { kv } from "/db/kv.js";
 import KeyFactory from "/db/key_factory.js";
 
 export default class AnswerController {
-  static async answer({ params, cookies, response, request }) {
-    const username = await cookies.get("username");
+  static async answer({ params, state, response, request }) {
+    const username = state.username;
     const questionId = await params.questionId;
     const json = await request.body.json();
     const answerChoiceId = json.choiceId;
