@@ -5,7 +5,7 @@ import HashHelper from "/utils/hash_helper.js";
 import { INVITE_CODE_ROLES } from "/config/roles.js";
 
 export default class UserController {
-  static async create({ request, cookies, response }) {
+  static async create({ request, response }) {
     const json = await request.body.json();
     const { username, password, inviteCode } = json;
 
@@ -39,8 +39,6 @@ export default class UserController {
     const newUser = { username, passwordHash, role };
     await kv.set(KeyFactory.userKey(username), newUser);
 
-    await cookies.set("username", username);
-
-    response.body = { username };
+    response.body = { accessToken: username };
   }
 }
