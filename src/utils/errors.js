@@ -31,6 +31,8 @@ export const NOT_STATUS = error(
 
 export const NOT_ANSWER = error(1006, "回答がありません");
 
+export const BEFORE_OPEN_QUESTION = error(1101, "問題はまだ公開されていません");
+
 function error(code, message) {
   return { error: { code, message } };
 }
