@@ -4,7 +4,7 @@ import KeyFactory from "/db/key_factory.js";
 import HashHelper from "/utils/hash_helper.js";
 
 export default class AuthController {
-  static async signin({ request, cookies, response }) {
+  static async signin({ request, response }) {
     const json = await request.body.json();
     const { username, password } = json;
 
@@ -33,19 +33,10 @@ export default class AuthController {
       return;
     }
 
-    await cookies.set("username", username, {
-      httpOnly: true,
-      sameSite: "none",
-      secure: true,
-      ignoreInsecure: true,
-      maxAge: 86400,
-    });
-
-    response.body = { username };
+    response.body = { username, accessToken: username };
   }
 
-  static async signout({ cookies, response }) {
-    await cookies.set("username", "", { maxAge: 0 });
+  static signout({ response }) {
     response.status = 200;
   }
 }

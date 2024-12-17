@@ -4,8 +4,8 @@ import * as Errors from "/utils/errors.js";
 import { ROLE_PERMISSIONS } from "/config/roles.js";
 
 export const auth =
-  (requiredPermissions) => async ({ cookies, response }, next) => {
-    const username = await cookies.get("username");
+  (requiredPermissions) => async ({ request, state, response }, next) => {
+    const username = request.headers.get("Authorization")?.split(" ")?.at(1);
     if (!username) {
       response.body = Errors.UNAUTHORIZED;
       return;
@@ -22,6 +22,8 @@ export const auth =
       response.body = Errors.FORBIDDEN;
       return;
     }
+
+    state.username = username;
 
     await next();
   };

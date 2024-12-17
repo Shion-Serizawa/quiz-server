@@ -23,6 +23,7 @@ export class Permissions {
   static ALWAYS_SEE_ANSWER = "ALWAYS_SEE_ANSWER";
 
   static POST_ANSWERS = "POST_ANSWERS";
+  static GET_ANSWERS = "POST_ANSWERS";
 
   static GET_RANKING = "GET_RANKING";
 }
@@ -35,6 +36,7 @@ ROLE_PERMISSIONS.set(Roles.USER, [
   Permissions.GET_STATUS,
   Permissions.GET_QUESTIONS,
   Permissions.POST_ANSWERS,
+  Permissions.GET_ANSWERS,
   Permissions.GET_RANKING,
 ]);
 

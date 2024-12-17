@@ -3,8 +3,8 @@ import { kv } from "/db/kv.js";
 import KeyFactory from "/db/key_factory.js";
 
 export default class AnswerController {
-  static async answer({ params, cookies, response, request }) {
-    const username = await cookies.get("username");
+  static async post({ params, state, response, request }) {
+    const username = state.username;
     const questionId = await params.questionId;
     const json = await request.body.json();
     const answerChoiceId = json.choiceId;
@@ -38,5 +38,18 @@ export default class AnswerController {
     await kv.set(KeyFactory.answerKey(username, questionId), value);
 
     response.status = 200;
+  }
+
+  static async get({ params, state, response }) {
+    const username = state.username;
+    const questionId = await params.questionId;
+
+    const answer = await kv.get(KeyFactory.answerKey(username, questionId));
+    if (answer.value === null) {
+      response.body = Errors.NOT_ANSWER;
+      return;
+    }
+
+    response.body = { "choiseId": answer.value.answerChoiceId };
   }
 }
