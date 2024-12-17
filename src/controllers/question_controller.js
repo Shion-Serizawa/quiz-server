@@ -60,6 +60,9 @@ export default class QuestionController {
       return;
     }
 
+    // 回答を削除
+    delete question.correctChoiceId;
+
     ctx.response.body = question.value;
   }
 
