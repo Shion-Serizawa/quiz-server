@@ -33,7 +33,7 @@ export default class AuthController {
       return;
     }
 
-    response.body = { accessToken: username };
+    response.body = { username, accessToken: username };
   }
 
   static signout({ response }) {

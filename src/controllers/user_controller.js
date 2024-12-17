@@ -39,6 +39,6 @@ export default class UserController {
     const newUser = { username, passwordHash, role };
     await kv.set(KeyFactory.userKey(username), newUser);
 
-    response.body = { accessToken: username };
+    response.body = { username, accessToken: username };
   }
 }
