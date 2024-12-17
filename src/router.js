@@ -52,7 +52,13 @@ router.delete(
 router.post(
   "/questions/:questionId/answer",
   auth([Permissions.POST_ANSWERS]),
-  AnswerController.answer,
+  AnswerController.post,
+);
+
+router.get(
+  "/questions/:questionId/answer",
+  auth([Permissions.GET_ANSWERS]),
+  AnswerController.get,
 );
 
 router.get(
