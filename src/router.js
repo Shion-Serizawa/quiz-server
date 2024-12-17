@@ -74,4 +74,10 @@ router.post(
   StatusController.post,
 );
 
+router.get(
+  "/status",
+  //auth([Permissions.GET_STATUS]),
+  StatusController.get,
+);
+
 export { router };

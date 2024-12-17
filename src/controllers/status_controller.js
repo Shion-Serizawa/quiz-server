@@ -22,4 +22,14 @@ export default class StatusController {
     await kv.set(KeyFactory.statusKey(), json);
     response.status = 200;
   }
+
+  static async get({ response }) {
+    const status = await kv.get(KeyFactory.statusKey());
+    if (status.value === null) {
+      response.body = Errors.NOT_STATUS;
+      return;
+    }
+
+    response.body = status.value;
+  }
 }
