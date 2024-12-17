@@ -52,7 +52,7 @@ router.delete(
 
 router.post(
   "/questions/:questionId/answer",
-  //auth([Permissions.POST_ANSWERS]),
+  auth([Permissions.POST_ANSWERS]),
   AnswerController.answer,
 );
 
@@ -70,7 +70,7 @@ router.get(
 
 router.post(
   "/status",
-  auth([Permissions.POST_STATUS]),
+  //auth([Permissions.POST_STATUS]),
   StatusController.post,
 );
 
