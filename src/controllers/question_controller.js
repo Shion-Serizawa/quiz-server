@@ -61,7 +61,9 @@ export default class QuestionController {
     }
 
     // 回答を削除
-    delete question.correctChoiceId;
+    delete question.value.correctChoiceId;
+    console.log(question);
+    console.log(question.value);
 
     ctx.response.body = question.value;
   }
