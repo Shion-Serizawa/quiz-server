@@ -23,7 +23,7 @@ export class Permissions {
   static ALWAYS_SEE_ANSWER = "ALWAYS_SEE_ANSWER";
 
   static POST_ANSWERS = "POST_ANSWERS";
-  static GET_ANSWERS = "POST_ANSWERS";
+  static GET_ANSWERS = "GET_ANSWERS";
 
   static GET_RANKING = "GET_RANKING";
 }
