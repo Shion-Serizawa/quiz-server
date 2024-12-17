@@ -24,6 +24,8 @@ export const WRONG_USERNAME_OR_PASSWORD = error(
 );
 export const NOT_LOGIN = error(1004, "ログインしてください");
 
+export const NOT_STATUS = error(1005, "ステータス（ゲーム進行状況）がありません");
+
 function error(code, message) {
   return { error: { code, message } };
 }
