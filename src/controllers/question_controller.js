@@ -1,4 +1,6 @@
 import { kv } from "../db/kv.js";
+import * as Errors from "/utils/errors.js";
+import KeyFactory from "/db/key_factory.js";
 
 export default class QuestionController {
   // 質問を投稿するメソッド
@@ -24,10 +26,7 @@ export default class QuestionController {
     const questionId = await ctx.params.questionId;
     // バリデーション
     if (isNotNumber(questionId)) {
-      ctx.response.body = {
-        status: 400,
-        error: "質問は数字で取得してください",
-      };
+      ctx.response.body = Errors.INVALID_QUESTION_ID;
       return;
     }
 
@@ -46,10 +45,23 @@ export default class QuestionController {
 
     // バリデーション
     if (isNotNumber(questionId)) {
-      ctx.response.body = {
-        status: 400,
-        error: "質問は数字で取得してください",
-      };
+      ctx.response.body = Errors.INVALID_QUESTION_ID;
+      return;
+    }
+
+    // ステータスによる制限
+    const status = await kv.get(KeyFactory.statusKey());
+    if (status.value === null) {
+      ctx.response.body = Errors.BEFORE_OPEN_QUESTION;
+      return;
+    } else if (status.value.status === "waiting") {
+      ctx.response.body = Errors.BEFORE_OPEN_QUESTION;
+      return;
+    } else if (
+      status.value.status !== "finish" &&
+      status.value.questionId < Number(questionId)
+    ) {
+      ctx.response.body = Errors.BEFORE_OPEN_QUESTION;
       return;
     }
 
@@ -62,8 +74,6 @@ export default class QuestionController {
 
     // 回答を削除
     delete question.value.correctChoiceId;
-    console.log(question);
-    console.log(question.value);
 
     ctx.response.body = question.value;
   }
@@ -73,11 +83,7 @@ export default class QuestionController {
 
     // バリデーション
     if (isNotNumber(questionId)) {
-      ctx.response.body = {
-        status: 400,
-        error: "質問は数字で取得してください",
-      };
-      return;
+      ctx.response.body = Errors.INVALID_QUESTION_ID;
     }
 
     // データの削除
