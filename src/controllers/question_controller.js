@@ -22,6 +22,29 @@ export default class QuestionController {
     ctx.response.body = { status: 200 };
   }
 
+  static async getQuestionNumber(ctx) {
+    const status = await kv.get(KeyFactory.statusKey());
+    console.log(status);
+
+    if (status.value === null || status.value.status === "waiting") {
+      ctx.response.body = { questionId: 0 };
+      return;
+    } else if (status.value.status === "finish") {
+      // 個数
+      let count = 0;
+      for await (const _ of kv.list({ prefix: ["questions"] })) count++;
+      ctx.response.body = { questionId: count };
+      return;
+    } else if (
+      status.value.status === "open" || status.value.status === "closed"
+    ) {
+      ctx.response.body = { questionId: status.value.questionId };
+      return;
+    }
+
+    ctx.response.body = Errors.STATUS_SAVE_DATA_DESTRUCTION;
+  }
+
   static async getQuestionByAdmin(ctx) {
     const questionId = await ctx.params.questionId;
     // バリデーション
