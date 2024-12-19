@@ -67,6 +67,12 @@ router.get(
 );
 
 router.get(
+  "/questions/:questionId/answers",
+  auth([Permissions.GET_ANSWERS_COUNT]),
+  AnswerController.getCount,
+);
+
+router.get(
   "/ranking",
   auth([Permissions.GET_RANKING]),
   RankingController.get,

@@ -52,4 +52,33 @@ export default class AnswerController {
 
     response.body = { "choiseId": answer.value.answerChoiceId };
   }
+
+  static async getCount({ params, response }) {
+    const questionId = await params.questionId;
+    const prefix = [KeyFactory.answerKey().at(0)];
+    const iter = kv.list({ prefix });
+
+    const answerCounts = new Map();
+
+    for await (const { key, value } of iter) {
+      if (key.length === 3 && key[2] === questionId) {
+        const { answerChoiceId } = value;
+        if (answerCounts.has(answerChoiceId)) {
+          answerCounts.set(
+            answerChoiceId,
+            answerCounts.get(answerChoiceId) + 1,
+          );
+        } else {
+          answerCounts.set(answerChoiceId, 1);
+        }
+      }
+    }
+
+    response.body = {
+      answers: Array.from(answerCounts.entries()).map(([choiceId, count]) => ({
+        choiceId,
+        count,
+      })),
+    };
+  }
 }
