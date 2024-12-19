@@ -24,8 +24,6 @@ export default class QuestionController {
 
   static async getQuestionNumber(ctx) {
     const status = await kv.get(KeyFactory.statusKey());
-    console.log(status);
-
     if (status.value === null || status.value.status === "waiting") {
       ctx.response.body = { questionId: 0 };
       return;
