@@ -33,10 +33,6 @@ export const NOT_ANSWER = error(1006, "回答がありません");
 
 export const INVALID_QUESTION_ID = error(1101, "問題は数字で取得してください");
 export const BEFORE_OPEN_QUESTION = error(1102, "問題はまだ公開されていません");
-export const STATUS_SAVE_DATA_DESTRUCTION = error(
-  1103,
-  "ゲームの状態管理に問題があります。ご連絡ください。",
-);
 
 function error(code, message) {
   return { error: { code, message } };

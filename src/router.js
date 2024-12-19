@@ -9,7 +9,6 @@ import AnswerController from "./controllers/answer_controller.js";
 import RankingController from "/controllers/ranking_controller.js";
 import ImageController from "/controllers/image_controller.js";
 import StatusController from "/controllers/status_controller.js";
-import { route } from "@oak/oak/serve";
 
 const router = new Router();
 
@@ -32,11 +31,6 @@ router.post(
   "/questions",
   auth([Permissions.POST_QUESTIONS]),
   QuestionController.postQuestion,
-);
-router.get(
-  "/questions/number",
-  auth([Permissions.GET_QUESTIONS]),
-  QuestionController.getQuestionNumber,
 );
 router.get(
   "/questions/admin/:questionId",
