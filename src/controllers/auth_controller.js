@@ -2,6 +2,7 @@ import * as Errors from "/utils/errors.js";
 import { kv } from "/db/kv.js";
 import KeyFactory from "/db/key_factory.js";
 import HashHelper from "/utils/hash_helper.js";
+import JWTHelper from "/utils/jwt_helper.js";
 
 export default class AuthController {
   static async signin({ request, response }) {
@@ -33,7 +34,9 @@ export default class AuthController {
       return;
     }
 
-    response.body = { username, accessToken: username };
+    const accessToken = await JWTHelper.createJWT({ username });
+
+    response.body = { username, accessToken };
   }
 
   static signout({ response }) {

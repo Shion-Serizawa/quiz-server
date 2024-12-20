@@ -2,6 +2,7 @@ import * as Errors from "/utils/errors.js";
 import { kv } from "/db/kv.js";
 import KeyFactory from "/db/key_factory.js";
 import HashHelper from "/utils/hash_helper.js";
+import JWTHelper from "/utils/jwt_helper.js";
 import { INVITE_CODE_ROLES } from "/config/roles.js";
 
 export default class UserController {
@@ -39,7 +40,9 @@ export default class UserController {
     const newUser = { username, passwordHash, role };
     await kv.set(KeyFactory.userKey(username), newUser);
 
-    response.body = { username, accessToken: username };
+    const accessToken = await JWTHelper.createJWT({ username });
+
+    response.body = { username, accessToken };
   }
 
   static async getMe({ state, response }) {
