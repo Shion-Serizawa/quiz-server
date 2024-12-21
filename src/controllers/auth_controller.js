@@ -36,7 +36,7 @@ export default class AuthController {
 
     const accessToken = await JWTHelper.createJWT({ username });
 
-    response.body = { username, accessToken };
+    response.body = { username, accessToken, role: user.role };
   }
 
   static signout({ response }) {

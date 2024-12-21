@@ -42,7 +42,7 @@ export default class UserController {
 
     const accessToken = await JWTHelper.createJWT({ username });
 
-    response.body = { username, accessToken };
+    response.body = { username, accessToken, role };
   }
 
   static async getMe({ state, response }) {
