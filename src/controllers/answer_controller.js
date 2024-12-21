@@ -81,4 +81,16 @@ export default class AnswerController {
       })),
     };
   }
+
+  static async deleteAllAnswer({ response }) {
+    const kv = await Deno.openKv();
+    const prefix = [KeyFactory.answerKey().at(0)];
+    const iter = kv.list({ prefix });
+
+    for await (const { key } of iter) {
+      await kv.delete(key);
+    }
+
+    response.status = 200;
+  }
 }
