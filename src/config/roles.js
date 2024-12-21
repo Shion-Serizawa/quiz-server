@@ -24,6 +24,7 @@ export class Permissions {
 
   static POST_ANSWERS = "POST_ANSWERS";
   static GET_ANSWERS = "GET_ANSWERS";
+  static DELETE_ANSWERS = "DELETE_ANSWERS";
 
   static GET_RANKING = "GET_RANKING";
   static GET_ANSWERS_COUNT = "GET_ANSWERS_COUNT";
@@ -49,6 +50,7 @@ ROLE_PERMISSIONS.set(Roles.ADMIN, [
   Permissions.DELETE_QUESTIONS,
   Permissions.ALWAYS_SEE_ANSWER,
   Permissions.GET_ANSWERS_COUNT,
+  Permissions.DELETE_ANSWERS,
 ]);
 
 export const INVITE_CODE_ROLES = new Map();
@@ -56,3 +58,6 @@ INVITE_CODE_ROLES.set(Deno.env.get("USER_INVITE_CODE"), Roles.USER);
 INVITE_CODE_ROLES.set(Deno.env.get("ADMIN_INVITE_CODE"), Roles.ADMIN);
 // 環境変数が未設定のときに誤ってroleが付与されるのを防止する
 INVITE_CODE_ROLES.set(undefined, undefined);
+
+// admin2 a eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluMiIsImlhdCI6MTczNDc4ODMyMSwiZXhwIjoxNzM0ODI0MzIxfQ.y8kqQKaTZCaetuPpZ-2qL1s19UtBije1Ntf3OEz4Kjg
+// admin3 a eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluMyIsImlhdCI6MTczNDc4ODQ3MiwiZXhwIjoxNzM0ODI0NDcyfQ.uW50fp0nPJ19iOwuULLivc5hdd8AMZi3L3BPkIfzhVo

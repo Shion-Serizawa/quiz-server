@@ -66,6 +66,12 @@ router.get(
   AnswerController.getCount,
 );
 
+router.delete(
+  "/answers",
+  auth([Permissions.DELETE_ANSWERS]),
+  AnswerController.deleteAllAnswer,
+);
+
 router.get(
   "/ranking",
   auth([Permissions.GET_RANKING]),
