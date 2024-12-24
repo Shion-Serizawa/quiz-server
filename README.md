@@ -9,6 +9,7 @@
 | USER_INVITE_CODE          | user invite code                                                   |
 | ADMIN_INVITE_CODE         | admin invite code                                                  |
 | COOKIE_SECRET_KEY         | This will be used to sign cookies to help prevent cookie tampering |
+| ACCESS_TOKEN_SECRET       | JWT用                                                              |
 
 ```
 $ deno task start
