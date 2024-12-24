@@ -25,6 +25,8 @@ export default class AnswerController {
 
     const correctAnswer = await kv.get(KeyFactory.questionKey(questionId));
     const correctAnswerId = correctAnswer.value.correctChoiceId;
+    const status = await kv.get(KeyFactory.statusKey());
+    const answerDuration = Date.now() - status.value.openTimestamp;
 
     const isCorrect = answerChoiceId === correctAnswerId;
 
@@ -33,6 +35,7 @@ export default class AnswerController {
       questionId: questionId,
       answerChoiceId: answerChoiceId,
       isCorrect: isCorrect,
+      answerDuration: answerDuration
     };
 
     await kv.set(KeyFactory.answerKey(username, questionId), value);
