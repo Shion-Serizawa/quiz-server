@@ -13,7 +13,7 @@ export default class StatusController {
     }
     if (status === "open" || status === "closed") {
       const questionId = json.questionId;
-      json.timestmp = Date.now();
+      json.openTimestamp = Date.now();
       if (typeof questionId !== "number" || status === "") {
         response.body = Errors.BAD_REQUEST;
         return;
