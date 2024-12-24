@@ -4,38 +4,47 @@ import KeyFactory from "/db/key_factory.js";
 export default class RankingController {
   static async get({ response }) {
     // 集計
-    const scores = new Map();
+    const entries = kv.list({
+      prefix: KeyFactory.answerPrefix(),
+    });
 
-    for await (
-      const { value: answer } of kv.list({ prefix: KeyFactory.answerPrefix() })
-    ) {
-      const { username, isCorrect } = answer;
-      const score = scores.get(username) ?? 0;
-      scores.set(username, score + isCorrect);
-    }
+    const answers = (await Array.fromAsync(entries)).map((entry) =>
+      entry.value
+    );
 
-    const unsorted = [...scores.keys()].map((username) => ({
-      username,
-      score: scores.get(username),
-    }));
+    const stats = answers.reduce((stats, answer) => {
+      const { username, isCorrect, answerDuration } = answer;
 
-    const sorted = unsorted.toSorted((a, b) => b.score - a.score);
-
-    // ranking
-    const ranking = [];
-    let currentScore;
-    let currentRank = 0;
-    let currentOrder = 0;
-
-    for (const { username, score } of sorted) {
-      currentOrder += 1;
-      if (score !== currentScore) {
-        currentRank = currentOrder;
-        currentScore = score;
+      if (!username) {
+        return stats;
       }
 
-      ranking.push({ rank: currentRank, username, score });
-    }
+      if (!stats[username]) {
+        stats[username] = { score: 0, time: 0 };
+      }
+
+      stats[username].score += isCorrect ?? 0;
+      stats[username].time += answerDuration ?? 0;
+
+      return stats;
+    }, {});
+
+    const unsorted = Object.keys(stats).map((username) => ({
+      username,
+      ...stats[username],
+    }));
+
+    const sorted = unsorted.toSorted((a, b) => {
+      if (a.score === b.score) {
+        return a.time - b.time;
+      }
+      return b.score - a.score;
+    });
+
+    const ranking = sorted.map((value, index) => ({
+      rank: index + 1,
+      ...value,
+    }));
 
     response.body = { ranking };
   }
