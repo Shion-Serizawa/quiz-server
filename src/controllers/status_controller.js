@@ -13,6 +13,9 @@ export default class StatusController {
     }
     if (status === "open" || status === "closed") {
       const questionId = json.questionId;
+      const dateTime = new Date();
+      const addData = {time: dateTime.getTime()}
+      json.push(addData)
       if (typeof questionId !== "number" || status === "") {
         response.body = Errors.BAD_REQUEST;
         return;
