@@ -55,13 +55,9 @@ export default class UserController {
   static async deleteAll({ response }) {
     const prefix = ["users"];
     const iter = kv.list({ prefix });
-    const users = [];
     for await (const entry of iter) {
-      users.push({
-        key: entry.key,
-        value: entry.value,
-      });
+      await kv.delete(entry.key);
     }
-    response.body = users;
+    response.status = 200;
   }
 }
