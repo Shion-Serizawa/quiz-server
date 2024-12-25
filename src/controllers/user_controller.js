@@ -51,4 +51,17 @@ export default class UserController {
     const pick = ({ username, role }) => ({ username, role });
     response.body = pick(user);
   }
+
+  static async deleteAll({ response }) {
+    const prefix = ["users"];
+    const iter = kv.list({ prefix });
+    const users = [];
+    for await (const entry of iter) {
+      users.push({
+        key: entry.key,
+        value: entry.value,
+      });
+    }
+    response.body = users;
+  }
 }
