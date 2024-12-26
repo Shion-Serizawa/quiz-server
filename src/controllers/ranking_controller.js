@@ -13,7 +13,7 @@ export default class RankingController {
     );
 
     console.log("answers");
-    console.log(answers.filter(answer => !answer.answerDuration));
+    console.log(answers);
 
     const stats = answers.reduce((stats, answer) => {
       const { username, isCorrect, answerDuration } = answer;
