@@ -35,7 +35,7 @@ export default class AnswerController {
       questionId: questionId,
       answerChoiceId: answerChoiceId,
       isCorrect: isCorrect,
-      answerDuration: answerDuration
+      answerDuration: answerDuration,
     };
 
     await kv.set(KeyFactory.answerKey(username, questionId), value);
