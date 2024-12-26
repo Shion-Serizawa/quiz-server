@@ -12,6 +12,9 @@ export default class RankingController {
       entry.value
     );
 
+    console.log("answers");
+    console.log(answers);
+
     const stats = answers.reduce((stats, answer) => {
       const { username, isCorrect, answerDuration } = answer;
 
@@ -28,6 +31,9 @@ export default class RankingController {
 
       return stats;
     }, {});
+
+    console.log("stats");
+    console.log(stats);
 
     const unsorted = Object.keys(stats).map((username) => ({
       username,
