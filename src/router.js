@@ -26,7 +26,7 @@ router.post("/signin", AuthController.signin);
 router.post("/signout", AuthController.signout);
 
 router.get("/me", auth([Permissions.GET_ME]), UserController.getMe);
-router.delete("/deleteUser", UserController.deleteAll)
+router.delete("/deleteUser", UserController.deleteAll);
 
 router.post(
   "/questions",
