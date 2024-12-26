@@ -21,6 +21,14 @@ export default class UserController {
       return;
     }
 
+    if (
+      password.length > 32 ||
+      /[^a-zA-Z0-9]/.test(password)
+    ) {
+      response.body = Errors.INVALID_PASSWORD;
+      return;
+    }
+
     const role = INVITE_CODE_ROLES.get(inviteCode);
 
     if (!role) {
