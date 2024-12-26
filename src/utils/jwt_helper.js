@@ -9,7 +9,7 @@ export default class JWTHelper {
     const jwt = await new SignJWT(payload)
       .setProtectedHeader({ alg: "HS256" })
       .setIssuedAt()
-      .setExpirationTime("10h")
+      .setExpirationTime("20h")
       .sign(secret);
     return jwt;
   }
