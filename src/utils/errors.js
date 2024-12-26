@@ -36,6 +36,8 @@ export const INVALID_PASSWORD = error(
   "パスワードが長すぎるか使用できない文字が含まれます",
 );
 
+export const ANSWER_TIME_OUT = error(1007, "回答の受付を終了しています");
+
 export const INVALID_QUESTION_ID = error(1101, "問題は数字で取得してください");
 export const BEFORE_OPEN_QUESTION = error(1102, "問題はまだ公開されていません");
 

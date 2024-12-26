@@ -8,6 +8,14 @@ export default class AnswerController {
     const questionId = await params.questionId;
     const json = await request.body.json();
     const answerChoiceId = json.choiceId;
+    const status = await kv.get(KeyFactory.statusKey());
+
+    if (
+      status.value.status !== "open" && status.value.questionId !== questionId
+    ) {
+      response.body = Errors.ANSWER_TIME_OUT;
+      return;
+    }
 
     if (typeof username !== "string" || username === "") {
       response.body = Errors.NOT_LOGIN;
@@ -25,7 +33,6 @@ export default class AnswerController {
 
     const correctAnswer = await kv.get(KeyFactory.questionKey(questionId));
     const correctAnswerId = correctAnswer.value.correctChoiceId;
-    const status = await kv.get(KeyFactory.statusKey());
     const answerDuration = Date.now() - status.value.openTimestamp;
 
     const isCorrect = answerChoiceId === correctAnswerId;
