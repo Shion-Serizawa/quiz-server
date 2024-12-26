@@ -31,6 +31,11 @@ export const NOT_STATUS = error(
 
 export const NOT_ANSWER = error(1006, "回答がありません");
 
+export const INVALID_PASSWORD = error(
+  1006,
+  "パスワードが長すぎるか使用できない文字が含まれます",
+);
+
 export const INVALID_QUESTION_ID = error(1101, "問題は数字で取得してください");
 export const BEFORE_OPEN_QUESTION = error(1102, "問題はまだ公開されていません");
 
