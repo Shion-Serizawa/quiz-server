@@ -25,6 +25,7 @@ export class Permissions {
   static POST_ANSWERS = "POST_ANSWERS";
   static GET_ANSWERS = "GET_ANSWERS";
   static DELETE_ANSWERS = "DELETE_ANSWERS";
+  static DELETE_USERS = "DELETE_USERSS";
 
   static GET_RANKING = "GET_RANKING";
   static GET_ANSWERS_COUNT = "GET_ANSWERS_COUNT";
@@ -51,6 +52,7 @@ ROLE_PERMISSIONS.set(Roles.ADMIN, [
   Permissions.ALWAYS_SEE_ANSWER,
   Permissions.GET_ANSWERS_COUNT,
   Permissions.DELETE_ANSWERS,
+  Permissions.DELETE_USERS,
 ]);
 
 export const INVITE_CODE_ROLES = new Map();
