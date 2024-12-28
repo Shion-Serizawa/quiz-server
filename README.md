@@ -15,5 +15,5 @@ $ deno task start
 ```
 
 # mainのデプロイ先
-
+- ↓公開終了
 [https://seri-quiz-server-98.deno.dev/](https://seri-quiz-server-98.deno.dev/)
